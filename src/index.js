@@ -81,17 +81,14 @@ handWithDups2 = distributeCard(handWithDups2);
 handWithDups3 = distributeCard(handWithDups3);
 
 function duplicate(hand) { //Removes Duplicates
-    var x = hand.length;
-    var y = hand.length;
-    for (var i = 0; i < x; i++) {
-      for (var j = i + 1; j < y; j++) {
+    for (var i = 0; i < hand.length; i++) {
+      for (var j = i + 1; j < hand.length; j++) {
         if (hand[i].rank === hand[j].rank) {
           hand.splice(i, 1);
           hand.splice(j - 1, 1);
-          y = y - 2;
+          j = i;
         }
       }
-      x = y;
     }
     return hand;
 }
