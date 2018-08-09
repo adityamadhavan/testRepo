@@ -10,7 +10,7 @@ const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
 var z = 0;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
-var handWithDups1 = [], handWithDups2 = [], handWithDups3 = [];
+var initHand1 = [], initHand2 = [], initHand3 = [];
 var hand1 = [], hand2 = [], hand3 = [];
 
 var newCard = {
@@ -64,6 +64,7 @@ function shuffleDeck(deck) {
 newDeckGeneral = shuffleDeck(createDeckArray);
 newDeckGeneral.pop();
 deck = newDeckGeneral;
+console.log(deck);
 
 // for( let i = 0; i < deck.length; i++){console.log(deck[i].picture);}
 
@@ -76,11 +77,12 @@ function distributeCard(hand) {
 }
 deck = newDeckGeneral;
 
-handWithDups1 = distributeCard(handWithDups1);  
-handWithDups2 = distributeCard(handWithDups2);
-handWithDups3 = distributeCard(handWithDups3);
+initHand1 = distributeCard(initHand1);  
+initHand2 = distributeCard(initHand2);
+initHand3 = distributeCard(initHand3);
 
 function duplicate(hand) { //Removes Duplicates
+    
     for (var i = 0; i < hand.length; i++) {
       for (var j = i + 1; j < hand.length; j++) {
         if (hand[i].rank === hand[j].rank) {
@@ -90,39 +92,10 @@ function duplicate(hand) { //Removes Duplicates
         }
       }
     }
-    return hand;
+    return ( hand );
 }
 
-hand1 = duplicate(handWithDups1); //Duplicates removed  
-hand2 = duplicate(handWithDups2); //Duplicates removed  
-hand3 = duplicate(handWithDups3); //Duplicates removed
-
-function turn(handA, handB) { //Turn
-    let x = Math.trunc(Math.random() * handB.length);
-    let a = handB[x];
-    console.log("Selected Card")
-    console.log(handB[x]);
-    handA.push(a);
-    handB.splice(x, 1);
-    handA = duplicate(handA);
-    console.log("Hand taken by");
-    for (var i = 0; i < handA.length; i++) {
-      console.log(handA[i]);
-    }
-    console.log("Hand taken from");
-    for (var i = 0; i < handB.length; i++) {
-      console.log(handB[i]);
-    }
-    return handA;
-}
-
-const Turn = () => {
-    return(
-        <div>
-            ...
-        </div>    
-    );
-}
+console.log(initHand1);
 
 class Card extends React.Component{
     render(){
@@ -136,32 +109,77 @@ class Card extends React.Component{
 }
 
 class Hand extends React.Component{
+
     render(){
         return(
             <div>
-                {this.props.card.map((card) => <Card {...card} />)}
+                {this.props.card.map((card, i) => <Card key={i} {...card} />)}
             </div>
         );
     }
 }
 
 class Board extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            hand1: initHand1,
+            hand2: initHand2,
+            hand3: initHand3
+        };
+    }
+
+
+    duplicateFilter() {
+        this.setState({hand1: this.duplicate(this.state.hand1),
+                       hand2:  this.duplicate(this.state.hand2),
+                       hand3:  this.duplicate(this.state.hand3)
+        });
+       
+    }
+
+    newGame() {
+        this.setState({hand1: initHand1,
+                       hand2: initHand2,
+                       hand3: initHand3
+        });
+       
+    }
+    
+
+    duplicate(hand) {
+    
+        for (var i = 0; i < hand.length; i++) {
+            for (var j = i + 1; j < hand.length; j++) {
+              if (hand[i].rank === hand[j].rank) {
+                hand.splice(i, 1);
+                hand.splice(j - 1, 1);
+                j = i;
+              }
+            }
+          }
+
+       return hand;
+    }
+
+
     render(){
         return(
             <div>
                 <h1>Welcome to Old Boy</h1>
-                <button onClick={() => alert('Refresh Page to Start New Game')}>New Game</button>
+                <button onClick={this.newGame.bind(this)}>New Game</button>
+                <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
                 <hr/>
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4">
-                        <Hand card={hand1}/>
+                        <Hand card={this.state.hand1}/>
                         </div>
                         <div className="col-sm-4">
-                            <Hand card={hand2}/>
+                            <Hand card={this.state.hand2}/>
                         </div>
                         <div className="col-sm-4">
-                            <Hand card={hand3}/>
+                            <Hand card={this.state.hand3}/>
                         </div>
                     </div>
                 </div>    
