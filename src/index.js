@@ -81,20 +81,6 @@ initHand1 = distributeCard(initHand1);
 initHand2 = distributeCard(initHand2);
 initHand3 = distributeCard(initHand3);
 
-function duplicate(hand) { //Removes Duplicates
-    
-    for (var i = 0; i < hand.length; i++) {
-      for (var j = i + 1; j < hand.length; j++) {
-        if (hand[i].rank === hand[j].rank) {
-          hand.splice(i, 1);
-          hand.splice(j - 1, 1);
-          j = i;
-        }
-      }
-    }
-    return ( hand );
-}
-
 console.log(initHand1);
 
 class Card extends React.Component{
@@ -132,23 +118,13 @@ class Board extends React.Component{
 
     duplicateFilter() {
         this.setState({hand1: this.duplicate(this.state.hand1),
-                       hand2:  this.duplicate(this.state.hand2),
-                       hand3:  this.duplicate(this.state.hand3)
+                       hand2: this.duplicate(this.state.hand2),
+                       hand3: this.duplicate(this.state.hand3)
         });
        
     }
-
-    newGame() {
-        this.setState({hand1: initHand1,
-                       hand2: initHand2,
-                       hand3: initHand3
-        });
-       
-    }
-    
 
     duplicate(hand) {
-    
         for (var i = 0; i < hand.length; i++) {
             for (var j = i + 1; j < hand.length; j++) {
               if (hand[i].rank === hand[j].rank) {
@@ -162,12 +138,29 @@ class Board extends React.Component{
        return hand;
     }
 
+    Button() {
+        this.setState({hand1: this.Play(this.state.hand1),
+                       hand2: this.Play(this.state.hand2),
+                       hand3: this.Play(this.state.hand3)
+
+        });
+    }
+
+    Play(handA, handB) { //Turn
+        let x = Math.trunc(Math.random() * handB.length);
+        let a = handB[x];
+        console.log("Selected Card")
+        console.log(handB[x]);
+        handA.push(a);
+        handB.splice(x, 1);
+        return handA;
+    }
 
     render(){
         return(
             <div>
                 <h1>Welcome to Old Boy</h1>
-                <button onClick={this.newGame.bind(this)}>New Game</button>
+                <button onClick={() => alert('Pls Refresh this bloody page')}>New Game</button>
                 <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
                 <hr/>
                 <div className="container">
@@ -177,6 +170,7 @@ class Board extends React.Component{
                         </div>
                         <div className="col-sm-4">
                             <Hand card={this.state.hand2}/>
+                            <button onClick={this.Play.bind(this)}>Play</button>
                         </div>
                         <div className="col-sm-4">
                             <Hand card={this.state.hand3}/>
@@ -188,5 +182,18 @@ class Board extends React.Component{
     }
 }
 
-ReactDOM.render(<Board />, document.getElementById('root'));
+
+
+
+class App extends React.Component{
+    render(){
+        return(
+            <div>
+                <Board />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
