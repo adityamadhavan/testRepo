@@ -66,8 +66,6 @@ newDeckGeneral.pop();
 deck = newDeckGeneral;
 console.log(deck);
 
-// for( let i = 0; i < deck.length; i++){console.log(deck[i].picture);}
-
 function distributeCard(hand) {
     for (var i = 0; i < 17; i++) {
       hand[i] = deck[0];
@@ -138,15 +136,19 @@ class Board extends React.Component{
        return hand;
     }
 
-    Button() {
-        this.setState({hand1: this.Play(this.state.hand1),
-                       hand2: this.Play(this.state.hand2),
-                       hand3: this.Play(this.state.hand3)
-
-        });
+    Button1() {
+        this.setState({hand1: this.PlayPlayer(this.state.hand1, this.state.hand2)});
     }
 
-    Play(handA, handB) { //Turn
+    Button2() {
+        this.setState({hand2: this.PlayPlayer(this.state.hand2, this.state.hand3)});
+    }
+
+    Button3() {
+        this.setState({hand3: this.PlayPlayer(this.state.hand3, this.state.hand1)});
+    }
+
+    PlayPlayer(handA, handB) { //Turn
         let x = Math.trunc(Math.random() * handB.length);
         let a = handB[x];
         console.log("Selected Card")
@@ -156,23 +158,39 @@ class Board extends React.Component{
         return handA;
     }
 
+    PlayComp(handA, handB) {
+        let a = this.PlayPlayer(handA, handB);
+        setTimeout(this.duplicate(a), 5000);
+        return(a);
+    }
+
     render(){
         return(
             <div>
-                <h1>Welcome to Old Boy</h1>
-                <button onClick={() => alert('Pls Refresh this bloody page')}>New Game</button>
-                <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
+                <h1 align="center">Welcome to Old Boy</h1>
+                <div className="container">
+                    <div clasName="row" >
+                        <div className="col=sm=4" ></div>
+                        <div className="col=sm=4" >
+                            <button onClick={() => alert('Pls Refresh this bloody page')}>New Game</button>
+                            <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
+                        </div>
+                        <div className="col=sm=4" ></div>    
+                    </div>
+                </div>
                 <hr/>
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4">
-                        <Hand card={this.state.hand1}/>
+                            <button onClick={this.Button1.bind(this)}>Play</button>
+                            <Hand card={this.state.hand1}/>
                         </div>
                         <div className="col-sm-4">
-                            <Hand card={this.state.hand2}/>
-                            <button onClick={this.Play.bind(this)}>Play</button>
+                            <button onClick={this.Button2.bind(this)}>Play</button>
+                            <Hand card={this.state.hand2}/>                      
                         </div>
                         <div className="col-sm-4">
+                            <button onClick={this.Button3.bind(this)}>Play</button>
                             <Hand card={this.state.hand3}/>
                         </div>
                     </div>
