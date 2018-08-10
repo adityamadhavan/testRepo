@@ -86,7 +86,7 @@ class Card extends React.Component{
     render(){
         return(
             <div>
-                <button className="button"><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfkzqDnXL_gZ2SsOZBxXd2Yh3IpJpTTorbiEqVBtgDgPZbnxHH" /></button>
+                <button type="button" class="btn buttontran" data-toggle="button" aria-pressed="false" autocomplete="off"><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfkzqDnXL_gZ2SsOZBxXd2Yh3IpJpTTorbiEqVBtgDgPZbnxHH" /></button>
                 <p>{this.props.rank} of {this.props.suit}</p>
             </div>
         );
@@ -97,7 +97,7 @@ class Hand extends React.Component{
 
     render(){
         return(
-            <div className="e">
+            <div>
                 {this.props.card.map((card, i) => <Card key={i} {...card} />)}
             </div>
         );
@@ -209,13 +209,14 @@ class Board extends React.Component{
             <div>
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
-                    <div clasName="row" >
-                        <div className="col-sm-4"></div>
-                        <div className="col-sm-4">
+                    <div className="row" >
+                        <div className="col-sm-2"></div>
+                        <div align="center" className="col-sm-4">
                             <button onClick={() => alert('Pls Refresh this bloody page')}>New Game</button>
                         </div>
-                        <div className="col-sm-4">
+                        <div align="center" className="col-sm-4">
                         <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
+                        <div className="col-sm-2"></div>
                         </div>    
                     </div>
                 </div>
@@ -223,16 +224,22 @@ class Board extends React.Component{
                 <div className="container">
                     <div className="row">
                         <div align="center" className="col-sm-4">
-                            <button padding="20" disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Play</button>
+                            <button padding="20" disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
+                            <hr/>
                             <Hand card={this.state.hand1}/>
+                            <hr/>
                         </div>
                         <div align="center" className="col-sm-4">
                             <button padding="20" disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
-                            <Hand card={this.state.hand2}/>                      
+                            <hr/>
+                            <Hand card={this.state.hand2}/>
+                            <hr/>                      
                         </div>
                         <div align="center" className="col-sm-4">
-                            <button padding="20" disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Play</button>
+                            <button padding="20" disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
+                            <hr/>
                             <Hand card={this.state.hand3}/>
+                            <hr/>
                         </div>
                         <div>{loser}</div>
                     </div>
