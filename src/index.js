@@ -103,22 +103,23 @@ class Hand extends React.Component{
     }
 }
 
-class Loser extends React.Component{
-    GetLoser(handA, handB, handC){
-        if (handA !== 0 && handB === 0 && handC === 0)
-        return handA;
-        else if (handB !== 0 && handA === 0 && handC === 0)
-        return handB;
-        else if (handC !== 0 && handB === 0 && handA === 0)
-        return handC;
-    }
-    render(){
-        return(
-            <div>
-                <h1>{this.GetLoser()} is the Effing Loser!!!</h1>
-            </div>
-        );
-    }
+
+function Player1Loses(){
+    return(
+        <h4>Player 1 Loses</h4>
+    );
+}
+
+function Player2Loses(){
+    return(
+        <h4>Player 2 Loses</h4>
+    );
+}
+
+function Player3Loses(){
+    return(
+        <h4>Player 3 Loses</h4>
+    );
 }
 
 class Board extends React.Component{
@@ -181,7 +182,7 @@ class Board extends React.Component{
             console.log("Selected Card")
             console.log(handB[x]);
             handA.push(a);
-            hand.splice(x, 1);
+            handC.splice(x, 1);
         }
         else{}
         return handA;
@@ -195,17 +196,26 @@ class Board extends React.Component{
     }
 
     render(){
+        let loser = null;
+        if (this.state.hand1 !== 0 && this.state.hand2 === 0 && this.state.hand3 === 0)
+        {loser = <Player1Loses />;}
+        else if (this.state.hand2 !== 0 && this.state.hand3 === 0 && this.state.hand1 === 0)
+        {loser = <Player2Loses />;}
+        else if (this.state.hand3 !== 0 && this.state.hand1 === 0 && this.state.hand2 === 0)
+        {loser = <Player3Loses />;}
+        
         return(
             <div>
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
                     <div clasName="row" >
-                        <div className="col=sm=4" ></div>
-                        <div className="col=sm=4" >
+                        <div className="col-sm-4"></div>
+                        <div className="col-sm-4">
                             <button onClick={() => alert('Pls Refresh this bloody page')}>New Game</button>
-                            <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
                         </div>
-                        <div className="col=sm=4" ></div>    
+                        <div className="col-sm-4">
+                        <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
+                        </div>    
                     </div>
                 </div>
                 <hr/>
@@ -223,8 +233,8 @@ class Board extends React.Component{
                             <button disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Play</button>
                             <Hand card={this.state.hand3}/>
                         </div>
+                        <div>{loser}</div>
                     </div>
-                    <Loser />
                 </div>    
             </div>
         );
