@@ -82,6 +82,7 @@ initHand3 = distributeCard(initHand3);
 console.log(initHand1);
 
 class Card extends React.Component{
+
     render(){
         return(
             <div>
