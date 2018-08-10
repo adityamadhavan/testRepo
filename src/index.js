@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
-var z = 0;
+var z = 0, l = null;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
@@ -103,6 +103,24 @@ class Hand extends React.Component{
     }
 }
 
+class Loser extends React.Component{
+    GetLoser(handA, handB, handC){
+        if (handA !== 0 && handB === 0 && handC === 0)
+        return handA;
+        else if (handB !== 0 && handA === 0 && handC === 0)
+        return handB;
+        else if (handC !== 0 && handB === 0 && handA === 0)
+        return handC;
+    }
+    render(){
+        return(
+            <div>
+                <h1>{this.GetLoser()} is the Effing Loser!!!</h1>
+            </div>
+        );
+    }
+}
+
 class Board extends React.Component{
     constructor(props){
         super(props);
@@ -137,40 +155,41 @@ class Board extends React.Component{
     }
 
     Button1() {
-        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2)});
+        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2, this.state.hand3)});
     }
 
     Button2() {
-        this.setState({hand2: this.PlayPlayer(this.state.hand2, this.state.hand3)});
+        this.setState({hand2: this.PlayComp(this.state.hand2, this.state.hand3, this.state.hand1)});
     }
 
     Button3() {
-        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1)});
+        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1, this.state.hand2)});
     }
 
     PlayPlayer(handA, handB, handC) { //Turn
         let x = Math.trunc(Math.random() * handB.length);
         let y = Math.trunc(Math.random() * handC.length);
-        if(this.state.handB !== 0){
+        if(handB.length !== 0){
             let a = handB[x];
             console.log("Selected Card")
             console.log(handB[x]);
             handA.push(a);
             handB.splice(x, 1);
         }
-        else if(handB === 0 && handC !== 0){
-            let b = handC[y];
+        else if(handB.length === 0 && handC.length !== 0){
+            let a = handC[x];
             console.log("Selected Card")
-            console.log(handB[y]);
-            handA.push(b);
-            handB.splice(y, 1);
+            console.log(handB[x]);
+            handA.push(a);
+            hand.splice(x, 1);
         }
         else{}
         return handA;
     }
 
-    PlayComp(handA, handB) {
-        let a = this.PlayPlayer(handA, handB);
+
+    PlayComp(handA, handB, handC) {
+        let a = this.PlayPlayer(handA, handB, handC);
         let b = this.duplicate(a);
         return b;
     }
@@ -193,18 +212,19 @@ class Board extends React.Component{
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4">
-                            <button disabled={this.state.hand1.length === 0 || this.state.hand2.length === 0} onClick={this.Button1.bind(this)}>Play</button>
+                            <button disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Play</button>
                             <Hand card={this.state.hand1}/>
                         </div>
                         <div className="col-sm-4">
-                            <button disabled={this.state.hand2.length === 0 || this.state.hand3.length === 0} onClick={this.Button2.bind(this)}>Play</button>
+                            <button disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
                             <Hand card={this.state.hand2}/>                      
                         </div>
                         <div className="col-sm-4">
-                            <button disabled={this.state.hand3.length === 0 || this.state.hand1.length === 0} onClick={this.Button3.bind(this)}>Play</button>
+                            <button disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Play</button>
                             <Hand card={this.state.hand3}/>
                         </div>
                     </div>
+                    <Loser />
                 </div>    
             </div>
         );
