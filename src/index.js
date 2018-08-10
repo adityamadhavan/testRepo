@@ -85,7 +85,7 @@ class Card extends React.Component{
     render(){
         return(
             <div>
-                <img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfkzqDnXL_gZ2SsOZBxXd2Yh3IpJpTTorbiEqVBtgDgPZbnxHH" />
+                <button className="button"><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfkzqDnXL_gZ2SsOZBxXd2Yh3IpJpTTorbiEqVBtgDgPZbnxHH" /></button>
                 <p>{this.props.rank} of {this.props.suit}</p>
             </div>
         );
@@ -96,7 +96,7 @@ class Hand extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="e">
                 {this.props.card.map((card, i) => <Card key={i} {...card} />)}
             </div>
         );
@@ -221,16 +221,16 @@ class Board extends React.Component{
                 <hr/>
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-4">
-                            <button disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Play</button>
+                        <div align="center" className="col-sm-4">
+                            <button padding="20" disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Play</button>
                             <Hand card={this.state.hand1}/>
                         </div>
-                        <div className="col-sm-4">
-                            <button disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
+                        <div align="center" className="col-sm-4">
+                            <button padding="20" disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
                             <Hand card={this.state.hand2}/>                      
                         </div>
-                        <div className="col-sm-4">
-                            <button disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Play</button>
+                        <div align="center" className="col-sm-4">
+                            <button padding="20" disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Play</button>
                             <Hand card={this.state.hand3}/>
                         </div>
                         <div>{loser}</div>
