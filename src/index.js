@@ -137,7 +137,7 @@ class Board extends React.Component{
     }
 
     Button1() {
-        this.setState({hand1: this.PlayPlayer(this.state.hand1, this.state.hand2)});
+        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2)});
     }
 
     Button2() {
@@ -145,23 +145,34 @@ class Board extends React.Component{
     }
 
     Button3() {
-        this.setState({hand3: this.PlayPlayer(this.state.hand3, this.state.hand1)});
+        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1)});
     }
 
-    PlayPlayer(handA, handB) { //Turn
+    PlayPlayer(handA, handB, handC) { //Turn
         let x = Math.trunc(Math.random() * handB.length);
-        let a = handB[x];
-        console.log("Selected Card")
-        console.log(handB[x]);
-        handA.push(a);
-        handB.splice(x, 1);
+        let y = Math.trunc(Math.random() * handC.length);
+        if(this.state.handB !== 0){
+            let a = handB[x];
+            console.log("Selected Card")
+            console.log(handB[x]);
+            handA.push(a);
+            handB.splice(x, 1);
+        }
+        else if(handB === 0 && handC !== 0){
+            let b = handC[y];
+            console.log("Selected Card")
+            console.log(handB[y]);
+            handA.push(b);
+            handB.splice(y, 1);
+        }
+        else{}
         return handA;
     }
 
     PlayComp(handA, handB) {
         let a = this.PlayPlayer(handA, handB);
-        setTimeout(this.duplicate(a), 5000);
-        return(a);
+        let b = this.duplicate(a);
+        return b;
     }
 
     render(){
@@ -182,15 +193,15 @@ class Board extends React.Component{
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4">
-                            <button onClick={this.Button1.bind(this)}>Play</button>
+                            <button disabled={this.state.hand1.length === 0 || this.state.hand2.length === 0} onClick={this.Button1.bind(this)}>Play</button>
                             <Hand card={this.state.hand1}/>
                         </div>
                         <div className="col-sm-4">
-                            <button onClick={this.Button2.bind(this)}>Play</button>
+                            <button disabled={this.state.hand2.length === 0 || this.state.hand3.length === 0} onClick={this.Button2.bind(this)}>Play</button>
                             <Hand card={this.state.hand2}/>                      
                         </div>
                         <div className="col-sm-4">
-                            <button onClick={this.Button3.bind(this)}>Play</button>
+                            <button disabled={this.state.hand3.length === 0 || this.state.hand1.length === 0} onClick={this.Button3.bind(this)}>Play</button>
                             <Hand card={this.state.hand3}/>
                         </div>
                     </div>
