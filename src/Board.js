@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './index.css';
 import Hand from './Hand.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
@@ -46,7 +46,6 @@ function CreateDeck(){
   return deck;
 }
 
-
 createDeckArray = CreateDeck();
 
 function shuffleDeck(deck) {
@@ -62,7 +61,6 @@ function shuffleDeck(deck) {
 newDeckGeneral = shuffleDeck(createDeckArray);
 newDeckGeneral.pop();
 deck = newDeckGeneral;
-console.log(deck);
 
 function distributeCard(hand) {
     for (var i = 0; i < 17; i++) {
@@ -200,19 +198,19 @@ class Board extends React.Component{
                         <div align="center" className="col-sm-4">
                             <button padding="20" disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
                             <hr/>
-                            <Hand card={this.state.hand1}/>
+                            <div><Hand card={this.state.hand1}/></div>
                             <hr/>
                         </div>
                         <div align="center" className="col-sm-4">
                             <button padding="20" disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
                             <hr/>
-                            <Hand card={this.state.hand2}/>
+                            <div><Hand card={this.state.hand2}/></div>
                             <hr/>                      
                         </div>
                         <div align="center" className="col-sm-4">
                             <button padding="20" disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
                             <hr/>
-                            <Hand card={this.state.hand3}/>
+                            <div className="e" padding="30"><Hand card={this.state.hand3}/></div>
                             <hr/>
                         </div>
                         <div>{loser}</div>
