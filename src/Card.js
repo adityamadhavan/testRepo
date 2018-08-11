@@ -12,7 +12,6 @@ export class Card extends React.Component{
                 <img width="70"
                 src={`${this.props.picture}`} />
                 </button>
-                <p>{this.props.rank} of {this.props.suit}</p>
             </div>
         );
     }

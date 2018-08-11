@@ -196,19 +196,19 @@ class Board extends React.Component{
                 <div className="container">
                     <div className="row">
                         <div align="center" className="col-sm-4">
-                            <button padding="20" disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
+                            <button disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
                             <hr/>
                             <div><Hand card={this.state.hand1}/></div>
                             <hr/>
                         </div>
                         <div align="center" className="col-sm-4">
-                            <button padding="20" disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
+                            <button disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
                             <hr/>
                             <div><Hand card={this.state.hand2}/></div>
                             <hr/>                      
                         </div>
                         <div align="center" className="col-sm-4">
-                            <button padding="20" disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
+                            <button disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
                             <hr/>
                             <div className="e" padding="30"><Hand card={this.state.hand3}/></div>
                             <hr/>
