@@ -5,11 +5,12 @@ import './App.css';
 export class Card extends React.Component{
 
     render(){
+        console.log(this.props.picture)
         return(
             <div>
                 <button type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                <img width="30" 
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfkzqDnXL_gZ2SsOZBxXd2Yh3IpJpTTorbiEqVBtgDgPZbnxHH" />
+                <img width="70"
+                src={`${this.props.picture}`} />
                 </button>
                 <p>{this.props.rank} of {this.props.suit}</p>
             </div>

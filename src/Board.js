@@ -18,7 +18,7 @@ var newCard = {
 };
 
 function pic(x, y){
-    return("/Users/adityamadhavan/cardgame/src/cards/png/" + x + "/" + y + ".png");
+    return("./cards/png/" + x + "/" + y + ".png"); // /Users/adityamadhavan/cardgame/src/cards/png/" + x + "/" + y + ".png
 }
 
 for (var x = 0; x < 4; x++){
