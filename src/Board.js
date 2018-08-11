@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './index.css';
 import Hand from './Hand.js';
 
@@ -9,7 +8,7 @@ var z = 0, l = null;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
-var hand1 = [], hand2 = [], hand3 = [];
+
 
 var newCard = {
     suit: this.suit,
