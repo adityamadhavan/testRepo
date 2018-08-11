@@ -4,7 +4,7 @@ import Hand from './Hand.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
-var z = 0, l = null;
+var z = 0;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
@@ -150,11 +150,10 @@ class Board extends React.Component{
             handB.splice(x, 1);
         }
         else if(handB.length === 0 && handC.length !== 0){
-            let a = handC[x];
+            let a = handC[y];
             console.log("Selected Card")
-            console.log(handB[x]);
             handA.push(a);
-            handC.splice(x, 1);
+            handC.splice(y, 1);
         }
         else{}
         return handA;
