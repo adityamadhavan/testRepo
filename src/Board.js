@@ -4,23 +4,13 @@ import Hand from './Hand.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
-var z = 0, loser = 0;
+var z = 0;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
-var isFaceUp;
-
-
-var newCard = {
-    suit: this.suit,
-    rank: this.rank,
-    picture: this.picture
-};
 
 function pic(x, y){
-    return("./cards/png/" + x + "/" + y + ".png"); // /Users/adityamadhavan/cardgame/src/cards/png/" + x + "/" + y + ".png
-}
-
+    return("./cards/png/" + x + "/" + y + ".png");}
 
 for (var x = 0; x < 4; x++){
     for (var y = 0; y < 13; y++){
@@ -91,7 +81,7 @@ class Board extends React.Component{
             hand2: initHand2,
             hand3: initHand3,
             hand4: [],
-            loser: "start the game"
+            loser: "Game On!"
         };
     }
 
@@ -147,7 +137,7 @@ class Board extends React.Component{
             loser: this.state.hand3.length === 1 && this.state.hand1.length === 0 && this.state.hand2.length === 0 ? 'player 3 is the Loser': 'Game Progresses'});
     }
 
-    PlayPlayer(handA, handB, handC) { //Turn
+    PlayPlayer(handA, handB, handC) { 
         let x = Math.trunc(Math.random() * handB.length);
         let y = Math.trunc(Math.random() * handC.length);
         if(handB.length !== 0){
@@ -183,13 +173,14 @@ class Board extends React.Component{
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
                     <div className="row" >
-                        <div className="col-sm-2"></div>
                         <div align="center" className="col-sm-4">
                             <button onClick={this.newGame.bind(this)}>New Game</button>
                         </div>
                         <div align="center" className="col-sm-4">
                         <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
-                        <div className="col-sm-2"></div>
+                        </div>
+                        <div className="col-sm-4">
+                        <div align="center"><h1>{this.state.loser}</h1></div>
                         </div>    
                     </div>
                 </div>
@@ -226,13 +217,7 @@ class Board extends React.Component{
                                     <div className="e" padding="30"><h6>Player 3</h6><Hand card={this.state.hand3}/></div>
                                 </div>
                             </div>  
-                            <hr/> 
-                            <div className="row">    
-                                <div align="center" className="col-sm-12">
-                                    <div><h1>{this.state.loser}</h1></div>
-                                </div>
-                            </div>  
-                            
+                            <hr/>  
                         </div>
                         <div className="col-sm-3">
                             <div className="row">    
