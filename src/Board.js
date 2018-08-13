@@ -14,8 +14,7 @@ var isFaceUp;
 var newCard = {
     suit: this.suit,
     rank: this.rank,
-    picture: this.picture,
-    name: this.name
+    picture: this.picture
 };
 
 function pic(x, y){
@@ -41,7 +40,6 @@ function CreateDeck(){
                 rank: rank[rankIdx],
                 picture: picture[pictureIdx], 
                 downPic: './cards/png/back.png',
-                name: rank[rankIdx] + " " + "of" + " " + suit[suitIdx],
                 isFaceUp: false    
             };
         deck.push(newCard);
@@ -95,8 +93,6 @@ class Board extends React.Component{
             hand4: [],
             loser: "start the game"
         };
-
-        this.GetLoser = this.GetLoser.bind(this);
     }
 
     newGame() {
@@ -116,7 +112,7 @@ class Board extends React.Component{
         });    
     }
 
-    duplicate(handA, handB, message) {
+    duplicate(handA, handB) {
         for (var i = 0; i < handA.length; i++) {
             for (var j = i + 1; j < handA.length; j++) {
               if (handA[i].rank === handA[j].rank) { 
@@ -129,23 +125,26 @@ class Board extends React.Component{
                 handB.reverse();
               }
             }
-          }  
+          } 
+          for(var i = 0; i < handB.length; i++){
+            handB[i].isFaceUp = true;
+        }   
        return handA;
     }
 
     Button1() {
-        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2, this.state.hand3, this.state.hand4)
-        ,loser: this.state.hand1.length === 1 ? 'player 1 is the Loser': 'progress'});
+        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2, this.state.hand3, this.state.hand4),
+            loser: this.state.hand1.length === 1 ? 'player 1 is the Loser': 'Game Progresses'});
     }
 
     Button2() {
         this.setState({hand2: this.PlayPlayer(this.state.hand2, this.state.hand3, this.state.hand1),
-            loser: this.state.hand2.length === 1 ? 'player 2 is the Loser': 'progress'});
+            loser: this.state.hand2.length === 1 ? 'player 2 is the Loser': 'Game Progresses'});
     }
 
     Button3() {
-        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1, this.state.hand2, this.state.hand4)
-            ,loser: this.state.hand3.length === 1 ? 'player 3 is the Loser': 'progress'});
+        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1, this.state.hand2, this.state.hand4),
+            loser: this.state.hand3.length === 1 ? 'player 3 is the Loser': 'Game Progresses'});
     }
 
     PlayPlayer(handA, handB, handC) { //Turn
@@ -155,16 +154,13 @@ class Board extends React.Component{
             let a = handB[x];
             console.log("Selected Card")
             console.log(handB[x]);
-            // player1 false
-            // player2 true
-            // player3 false
             a.isFaceUp = true;
             handA.push(a);
             handB.splice(x, 1);
         }
         else if(handB.length === 0 && handC.length !== 0){
             let a = handC[y]; 
-            a.isFaceUp = false;
+            a.isFaceUp = true;
             handA.push(a);
             handC.splice(y, 1);
         }
@@ -173,29 +169,15 @@ class Board extends React.Component{
     }
 
 
-    PlayComp(handA, handB, handC, handD, message) {
+    PlayComp(handA, handB, handC, handD) {
         let a = this.PlayPlayer(handA, handB, handC);
-        let b = this.duplicate(a, handD, message);
+        a.isFaceUp = false;
+        let b = this.duplicate(a, handD);
         return b;
     }
-
-    FindLoser(hand1, hand2, hand3){
-        if  (hand1.length !== 0 && hand2.length === 0 && hand3.length === 0)
-        return( "hand1" );
-        else return("game in progress");
-    }
-
-    GetLoser(){
-        alert('sdfsdf')
-        this.setState({loser: this.FindLoser(this.state.hand1, this.state.hand2, this.state.hand3)});
-        return loser;
-        
-    }
-
     
     render(){
       
-        const Loser = 'gfhdfg';//this.GetLoser.bind(this);
         return(
             <div>
                 <h1 align="center">Welcome to Old Boy</h1>
@@ -247,7 +229,7 @@ class Board extends React.Component{
                             <hr/> 
                             <div className="row">    
                                 <div align="center" className="col-sm-12">
-                                    <div>{this.state.loser}</div>
+                                    <div><h1>{this.state.loser}</h1></div>
                                 </div>
                             </div>  
                             
