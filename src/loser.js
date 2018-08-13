@@ -1,27 +1,36 @@
 import React from 'react';
 import './App.css';
-import './Board.js'
+import './Board.js';
 
-class Loser extends React.Component{
+var hand1 = [], hand2 = [], hand3 = [];
 
-    
-    getLoser() {
-        if  (hand1 !== 0 && hand2 === 0 && hand3 === 0)
-        {loser = "Player 1 loses"}
-    else if (hand2 !== 0 && hand3 === 0 && hand1 === 0)
-        {loser = "Player 2 loses"}
-    else if (hand3 !== 0 && hand1 === 0 && hand2 === 0)
-        {loser = "Player 3 loses"}
-        return loser; 
+
+class GetLoser extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+           hand1: this.hand1,
+           hand2: this.hand2,
+           hand3: this.hand3
+        };
     }
     
     render(){
+        if  (hand1.length !== 0 && hand2.length === 0 && hand3.length === 0)
         return(
-            <div>
-                <h1><getLoser /></h1>
-            </div>
+            <h1>Player 1 is the loser</h1>
         );
+        else if  (hand2.length !== 0 && hand3.length === 0 && hand1.length === 0)
+        return(
+            <h1>Player 2 is the loser</h1>
+        );
+        else if  (hand3.length !== 0 && hand1.length === 0 && hand2.length === 0)
+        return(
+            <h1>Player 3 is the loser</h1>
+        );
+        else return("Game in progress");
+    
     }
 }
 
-export default Loser;
+export default GetLoser;

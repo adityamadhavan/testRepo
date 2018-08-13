@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import Hand from './Hand.js';
+import GetLoser from './loser.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
@@ -225,7 +226,7 @@ class Board extends React.Component{
                             <hr/> 
                             <div className="row">    
                                 <div align="center" className="col-sm-12">
-                                    <div>...</div>
+                                    <div><GetLoser /></div>
                                 </div>
                             </div>  
                             
