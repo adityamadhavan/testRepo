@@ -20,3 +20,12 @@ body {
   background-color: rgb(139, 175, 155); /* Green */
     color: black;
 }
+
+.stack{
+  display: inline-flex;
+  position: relative;
+}
+
+.rest{
+  margin-left: -102px;
+}

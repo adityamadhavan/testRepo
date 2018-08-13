@@ -8,6 +8,7 @@ var z = 0, loser = 0;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
+var isFaceUp;
 
 
 var newCard = {
@@ -20,6 +21,7 @@ var newCard = {
 function pic(x, y){
     return("./cards/png/" + x + "/" + y + ".png"); // /Users/adityamadhavan/cardgame/src/cards/png/" + x + "/" + y + ".png
 }
+
 
 for (var x = 0; x < 4; x++){
     for (var y = 0; y < 13; y++){
@@ -205,19 +207,19 @@ class Board extends React.Component{
                         <div className="col-sm-9">
                             <div className="row">
                                 <div align="center" className="col-sm-12">
-                                    <div><h3>Player 1</h3><Hand card={this.state.hand1}/></div>
+                                    <div><h6>Player 1</h6><Hand card={this.state.hand1}/></div>
                                 </div>
                             </div>
                             <hr/>
                             <div className="row">    
                                 <div align="center" className="col-sm-12">  
-                                    <div><h3>Player 2</h3><Hand card={this.state.hand2}/></div>                     
+                                    <div><h6>Player 2</h6><Hand card={this.state.hand2}/></div>                     
                                 </div>
                             </div>
                             <hr/> 
                             <div className="row">    
                                 <div align="center" className="col-sm-12">
-                                    <div className="e" padding="30"><h3>Player 3</h3><Hand card={this.state.hand3}/></div>
+                                    <div className="e" padding="30"><h6>Player 3</h6><Hand card={this.state.hand3}/></div>
                                 </div>
                             </div>  
                             <hr/> 
