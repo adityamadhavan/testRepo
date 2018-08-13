@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import Hand from './Hand.js';
-import GetLoser from './loser.js';
+import Loser from './loser.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
@@ -91,7 +91,7 @@ class Board extends React.Component{
             hand3: initHand3,
             hand4: [],
             message: [],
-            loser: []
+            loser: " "
         };
     }
 
@@ -172,6 +172,17 @@ class Board extends React.Component{
         let b = this.duplicate(a, handD, message);
         return b;
     }
+
+    FindLoser(hand1, hand2, hand3){
+        if  (hand1.length !== 0 && hand2.length === 0 && hand3.length === 0)
+        return( "hand1" );
+        else return("game in progress")
+    }
+
+    GetLoser(){
+        this.setState({loser: this.FindLoser(this.state.hand1, this.state.hand2, this.state.hand3)});
+        console.log(loser);
+    }
     
     render(){
         
@@ -226,7 +237,7 @@ class Board extends React.Component{
                             <hr/> 
                             <div className="row">    
                                 <div align="center" className="col-sm-12">
-                                    <div><GetLoser /></div>
+                                    <div>{this.GetLoser.bind(this)}</div>
                                 </div>
                             </div>  
                             
