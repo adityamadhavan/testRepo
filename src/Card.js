@@ -8,7 +8,7 @@ export class Card extends React.Component{
         return(
             <div>
                 <button type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                <img width="70"
+                <img width="60"
                 src={`${this.props.picture}`} alt="Card" />
                 </button>
             </div>
