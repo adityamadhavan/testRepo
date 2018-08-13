@@ -7,8 +7,9 @@ export class Card extends React.Component{
         return(
             <div>
                 <button type="button" className="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
+               {console.log(this.props.isFaceUp)}
                 <img width="60"
-                src={`${this.props.picture}`} alt="Card" />
+                src={this.props.isFaceUp ? `${this.props.picture}` : `${this.props.downPic}`} alt="Card" />
                 </button>
             </div>
         );
