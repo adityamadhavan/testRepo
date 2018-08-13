@@ -4,7 +4,7 @@ import Hand from './Hand.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
-var z = 0;
+var z = 0, loser = 0;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
@@ -13,7 +13,8 @@ var initHand1 = [], initHand2 = [], initHand3 = [];
 var newCard = {
     suit: this.suit,
     rank: this.rank,
-    picture: this.picture
+    picture: this.picture,
+    name: this.name
 };
 
 function pic(x, y){
@@ -36,7 +37,8 @@ function CreateDeck(){
             newCard = {
                 suit: suit[suitIdx],
                 rank: rank[rankIdx],
-                picture: picture[pictureIdx]      
+                picture: picture[pictureIdx],  
+                name: rank[rankIdx] + " " + "of" + " " + suit[suitIdx]    
             };
         deck.push(newCard);
         pictureIdx++;
@@ -70,73 +72,74 @@ function distributeCard(hand) {
 }
 deck = newDeckGeneral;
 
-initHand1 = distributeCard(initHand1);  
+initHand1 = distributeCard(initHand1); 
 initHand2 = distributeCard(initHand2);
 initHand3 = distributeCard(initHand3);
+console.log(initHand3); 
 
-console.log(initHand1);
-
-function Player1Loses(){
-    return(
-        <h4>Player 1 Loses</h4>
-    );
-}
-
-function Player2Loses(){
-    return(
-        <h4>Player 2 Loses</h4>
-    );
-}
-
-function Player3Loses(){
-    return(
-        <h4>Player 3 Loses</h4>
-    );
-}
 
 class Board extends React.Component{
+
     constructor(props){
         super(props);
         this.state = {
             hand1: initHand1,
             hand2: initHand2,
-            hand3: initHand3
+            hand3: initHand3,
+            hand4: [],
+            message: [],
+            loser: []
         };
     }
 
-
-    duplicateFilter() {
-        this.setState({hand1: this.duplicate(this.state.hand1),
-                       hand2: this.duplicate(this.state.hand2),
-                       hand3: this.duplicate(this.state.hand3)
+    newGame() {
+        this.setState({
+            hand1: initHand1,
+            hand2: initHand2,
+            hand3: initHand3,
+            hand4: [],
+            
         });
-       
     }
 
-    duplicate(hand) {
-        for (var i = 0; i < hand.length; i++) {
-            for (var j = i + 1; j < hand.length; j++) {
-              if (hand[i].rank === hand[j].rank) {
-                hand.splice(i, 1);
-                hand.splice(j - 1, 1);
+    duplicateFilter() {
+        this.setState({hand1: this.duplicate(this.state.hand1, this.state.hand4, this.state.message),  
+                       hand2: this.duplicate(this.state.hand2, this.state.hand4, this.state.message),
+                       hand3: this.duplicate(this.state.hand3, this.state.hand4, this.state.message)
+        });    
+    }
+
+    duplicate(handA, handB, message) {
+        for (var i = 0; i < handA.length; i++) {
+            for (var j = i + 1; j < handA.length; j++) {
+              if (handA[i].rank === handA[j].rank) { 
+                message.pop(handA[0]); message.pop(handA[0]);
+                message.push(handA[i]);
+                message.push(handA[j]);
+                handB.reverse();
+                handB.push(handA[i]);
+                handB.push(handA[j]);  
+                console.log(message);
+                handA.splice(i, 1);
+                handA.splice(j - 1, 1);
                 j = i;
+                handB.reverse();
               }
             }
-          }
-
-       return hand;
+          }  
+       return handA;
     }
 
     Button1() {
-        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2, this.state.hand3)});
+        this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2, this.state.hand3, this.state.hand4, this.state.message)});
     }
 
     Button2() {
-        this.setState({hand2: this.PlayComp(this.state.hand2, this.state.hand3, this.state.hand1)});
+        this.setState({hand2: this.PlayPlayer(this.state.hand2, this.state.hand3, this.state.hand1)});
     }
 
     Button3() {
-        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1, this.state.hand2)});
+        this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1, this.state.hand2, this.state.hand4, this.state.message)});
     }
 
     PlayPlayer(handA, handB, handC) { //Turn
@@ -152,6 +155,7 @@ class Board extends React.Component{
         else if(handB.length === 0 && handC.length !== 0){
             let a = handC[y];
             console.log("Selected Card")
+            console.log(handC[y]);
             handA.push(a);
             handC.splice(y, 1);
         }
@@ -160,20 +164,13 @@ class Board extends React.Component{
     }
 
 
-    PlayComp(handA, handB, handC) {
+    PlayComp(handA, handB, handC, handD, message) {
         let a = this.PlayPlayer(handA, handB, handC);
-        let b = this.duplicate(a);
+        let b = this.duplicate(a, handD, message);
         return b;
     }
-
+    
     render(){
-        let loser = null;
-        if (this.state.hand1 !== 0 && this.state.hand2 === 0 && this.state.hand3 === 0)
-        {loser = <Player1Loses />;}
-        else if (this.state.hand2 !== 0 && this.state.hand3 === 0 && this.state.hand1 === 0)
-        {loser = <Player2Loses />;}
-        else if (this.state.hand3 !== 0 && this.state.hand1 === 0 && this.state.hand2 === 0)
-        {loser = <Player3Loses />;}
         
         return(
             <div>
@@ -182,7 +179,7 @@ class Board extends React.Component{
                     <div className="row" >
                         <div className="col-sm-2"></div>
                         <div align="center" className="col-sm-4">
-                            <button onClick={() => alert('Pls Refresh this bloody page')}>New Game</button>
+                            <button onClick={this.newGame.bind(this)}>New Game</button>
                         </div>
                         <div align="center" className="col-sm-4">
                         <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
@@ -192,26 +189,53 @@ class Board extends React.Component{
                 </div>
                 <hr/>
                 <div className="container">
+                    <div align="center" className="row">
+                        <div className="col-sm-4">
+                            <button padding="20" disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
+                        </div>
+                        <div className="col-sm-4">
+                            <button padding="20" disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
+                        </div>
+                        <div className="col-sm-4">
+                            <button padding="20" disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
+                        </div>
+                    </div>
+                    <hr/>
                     <div className="row">
-                        <div align="center" className="col-sm-4">
-                            <button disabled={this.state.hand1.length === 0 || (this.state.hand2.length === 0 && this.state.hand3.length === 0)} onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
+                        <div className="col-sm-9">
+                            <div className="row">
+                                <div align="center" className="col-sm-12">
+                                    <div><h3>Player 1</h3><Hand card={this.state.hand1}/></div>
+                                </div>
+                            </div>
                             <hr/>
-                            <div><Hand card={this.state.hand1}/></div>
-                            <hr/>
+                            <div className="row">    
+                                <div align="center" className="col-sm-12">  
+                                    <div><h3>Player 2</h3><Hand card={this.state.hand2}/></div>                     
+                                </div>
+                            </div>
+                            <hr/> 
+                            <div className="row">    
+                                <div align="center" className="col-sm-12">
+                                    <div className="e" padding="30"><h3>Player 3</h3><Hand card={this.state.hand3}/></div>
+                                </div>
+                            </div>  
+                            <hr/> 
+                            <div className="row">    
+                                <div align="center" className="col-sm-12">
+                                    <div>...</div>
+                                </div>
+                            </div>  
+                            
                         </div>
-                        <div align="center" className="col-sm-4">
-                            <button disabled={this.state.hand2.length === 0 || (this.state.hand3.length === 0 && this.state.hand1.length === 0)} onClick={this.Button2.bind(this)}>Play</button>
-                            <hr/>
-                            <div><Hand card={this.state.hand2}/></div>
-                            <hr/>                      
+                        <div className="col-sm-3">
+                            <div className="row">    
+                                <div align="center" className="col-sm-12">  
+
+                                    <div><h4>The top 2 cards were discarded in the last turn</h4><Hand card={this.state.hand4}/></div>                     
+                                </div>
+                            </div>
                         </div>
-                        <div align="center" className="col-sm-4">
-                            <button disabled={this.state.hand3.length === 0 || (this.state.hand1.length === 0 && this.state.hand2.length === 0)} onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
-                            <hr/>
-                            <div className="e" padding="30"><Hand card={this.state.hand3}/></div>
-                            <hr/>
-                        </div>
-                        <div>{loser}</div>
                     </div>
                 </div>    
             </div>
