@@ -134,17 +134,17 @@ class Board extends React.Component{
 
     Button1() {
         this.setState({hand1: this.PlayComp(this.state.hand1, this.state.hand2, this.state.hand3, this.state.hand4),
-            loser: this.state.hand1.length === 1 ? 'player 1 is the Loser': 'Game Progresses'});
+            loser: this.state.hand1.length === 1 && this.state.hand2.length === 0 && this.state.hand3.length === 0 ? 'player 1 is the Loser': 'Game Progresses'});
     }
 
     Button2() {
         this.setState({hand2: this.PlayPlayer(this.state.hand2, this.state.hand3, this.state.hand1),
-            loser: this.state.hand2.length === 1 ? 'player 2 is the Loser': 'Game Progresses'});
+            loser: this.state.hand2.length === 1 && this.state.hand3.length === 0 && this.state.hand1.length === 0 ? 'player 2 is the Loser': 'Game Progresses'});
     }
 
     Button3() {
         this.setState({hand3: this.PlayComp(this.state.hand3, this.state.hand1, this.state.hand2, this.state.hand4),
-            loser: this.state.hand3.length === 1 ? 'player 3 is the Loser': 'Game Progresses'});
+            loser: this.state.hand3.length === 1 && this.state.hand1.length === 0 && this.state.hand2.length === 0 ? 'player 3 is the Loser': 'Game Progresses'});
     }
 
     PlayPlayer(handA, handB, handC) { //Turn
@@ -152,8 +152,6 @@ class Board extends React.Component{
         let y = Math.trunc(Math.random() * handC.length);
         if(handB.length !== 0){
             let a = handB[x];
-            console.log("Selected Card")
-            console.log(handB[x]);
             a.isFaceUp = true;
             handA.push(a);
             handB.splice(x, 1);
@@ -171,7 +169,9 @@ class Board extends React.Component{
 
     PlayComp(handA, handB, handC, handD) {
         let a = this.PlayPlayer(handA, handB, handC);
-        a.isFaceUp = false;
+        for(var i = 0; i < a.length; i++){
+            a[i].isFaceUp = false;
+        }
         let b = this.duplicate(a, handD);
         return b;
     }
