@@ -87,9 +87,9 @@ class Board extends React.Component{
 
     newGame() {
         this.setState({
-            hand1: initHand1,
-            hand2: initHand2,
-            hand3: initHand3,
+            hand1: this.state.initHand1,
+            hand2: this.state.initHand2,
+            hand3: this.state.initHand3,
             hand4: [],
             
         });
@@ -116,7 +116,7 @@ class Board extends React.Component{
               }
             }
           } 
-          for(var i = 0; i < handB.length; i++){
+          for(i = 0; i < handB.length; i++){
             handB[i].isFaceUp = true;
         }   
        return handA;
