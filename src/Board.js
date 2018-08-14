@@ -85,11 +85,7 @@ class Board extends React.Component{
             flag: [1,0,0],
             cnt: 0
         };
-        this.reset = this.props.state;
-    }
-
-    newGame = () => {
-        this.setState(this.reset);
+        this.reset = this.state;
     }
 
     Count(){
@@ -165,7 +161,7 @@ class Board extends React.Component{
             loser: this.state.hand1.length === 1 
                 && this.state.hand2.length === 0 
                 && this.state.hand3.length === 0 ? 'player 1 is the Loser': 'Game Progresses',
-            flag: [0,1,0]
+            flag: this.state.hand2.length === 1 ? [0,0,1] : [0,1,0]
             });
     }
 
@@ -175,7 +171,7 @@ class Board extends React.Component{
             loser: this.state.hand2.length === 1 
                 && this.state.hand3.length === 0 
                 && this.state.hand1.length === 0 ? 'player 2 is the Loser': 'Game Progresses',
-            flag: [0,0,1]
+            flag: this.state.hand2.length === 1 ? [1,0,0] : [0,0,1]
             });
     }
 
@@ -185,7 +181,7 @@ class Board extends React.Component{
             loser: this.state.hand3.length === 1
                 && this.state.hand1.length === 0 
                 && this.state.hand2.length === 0 ? 'player 3 is the Loser': 'Game Progresses',
-            flag: [1,0,0]
+            flag: this.state.hand3.length === 1 ? [0,1,0] : [1,0,0]
             });
     }
     
@@ -198,8 +194,10 @@ class Board extends React.Component{
                     <div className="row" >
                         <div align="center" className="col-sm-4">
                         <button onClick={this.Count.bind(this)}>Hehehe</button>
-                            <button onClick={this.Count.bind(this) && this.newGame.bind(this)}>New Game</button>
+                            <button onClick={this.Count.bind(this) && this.reset}>New Game</button>
                             <div><h6>{this.CountFun(this.state.cnt)}</h6></div>
+                            
+                            {console.log(this.reset)}
                         </div>
                         <div align="center" className="col-sm-4">
                         <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
