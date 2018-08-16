@@ -102,13 +102,6 @@ class Board extends React.Component{
         return cnt;
     }
 
-    duplicateFilter() {
-        this.setState({hand1: this.duplicate(this.state.hand1, this.state.hand4),  
-                       hand2: this.duplicate(this.state.hand2, this.state.hand4),
-                       hand3: this.duplicate(this.state.hand3, this.state.hand4),
-                    });    
-    }
-
     duplicate(handA, handB) {
         for (var i = 0; i < handA.length; i++) {
             for (var j = i + 1; j < handA.length; j++) {
@@ -131,10 +124,8 @@ class Board extends React.Component{
     }
 
     PlayPlayer(handA, handB, handC, handD) { 
-        
         let x = Math.trunc(Math.random() * handB.length);
         let y = Math.trunc(Math.random() * handC.length);
-        
         
         if(handB.length !== 0){
             let a = handB[x];
@@ -154,9 +145,8 @@ class Board extends React.Component{
     }
 
     PlayComp(handA, handB, handC, handD) {
-
-
         let a = this.PlayPlayer(handA, handB, handC, handD);
+        
         for(var i = 0; i < a.length; i++){
             a[i].isFaceUp = false;
         }
@@ -164,8 +154,26 @@ class Board extends React.Component{
 
         return b;
     }
+
+    GetLoser(handA, handB, handC, loser)
+    {
+        if((handA.length === 1 || handA.length === 3) && handB.length === 0 && handC.length === 0)
+        {loser = "Player 1 is the loser"}
+        else if((handB.length === 1 || handB.length === 3) && handC.length === 0 && handA.length === 0)
+        {loser = "Player 2 is the loser"}
+        else if((handC.length === 1 || handC.length === 3) && handA.length === 0 && handB.length === 0)
+        {loser = "Player 3 is the loser"}
+        else{loser = "Game progresses"}
+        return loser;
+    }
     
-    
+    duplicateButton() {
+        this.setState({hand1: this.duplicate(this.state.hand1, this.state.hand4),  
+                       hand2: this.duplicate(this.state.hand2, this.state.hand4),
+                       hand3: this.duplicate(this.state.hand3, this.state.hand4),
+                    });    
+    }
+
     Button1() {
         this.setState({
             hand1: this.PlayComp(
@@ -198,18 +206,6 @@ class Board extends React.Component{
             });
     }
 
-    GetLoser(handA, handB, handC, loser)
-    {
-        if((handA.length === 1 || handA.length === 3) && handB.length === 0 && handC.length === 0)
-        {loser = "Player 1 is the loser"}
-        else if((handB.length === 1 || handB.length === 3) && handC.length === 0 && handA.length === 0)
-        {loser = "Player 2 is the loser"}
-        else if((handC.length === 1 || handC.length === 3) && handA.length === 0 && handB.length === 0)
-        {loser = "Player 3 is the loser"}
-        else{loser = "Game progresses"}
-        return loser;
-    }
-    
     render(){
       
         return(
@@ -223,7 +219,7 @@ class Board extends React.Component{
                             <div><h6>{this.CountFun(this.state.cnt)}</h6></div>
                         </div>
                         <div align="center" className="col-sm-4 topbuttons">
-                        <button onClick={this.duplicateFilter.bind(this)}>Remove Duplicates</button>
+                        <button onClick={this.duplicateButton.bind(this)}>Remove Duplicates</button>
                         </div>
                         <div className="col-sm-4">
                         <div align="center"><h1>{this.state.loser}</h1></div>
@@ -274,8 +270,7 @@ class Board extends React.Component{
                             <div className="row">    
                                 <div align="center" className="col-sm-12"> 
                                     <div><h4>The top 2 cards were discarded in the last turn</h4>
-                                    <Discard card={this.state.hand4}/></div>
-                                              
+                                    <Discard card={this.state.hand4}/></div>         
                                 </div>
                             </div>
                         </div>
@@ -285,6 +280,5 @@ class Board extends React.Component{
         );
     }
 }
-
 
 export default Board;
