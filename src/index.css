@@ -69,3 +69,7 @@ button{
 #disc :nth-child(n+5){
   visibility: hidden;
 }
+
+.card1 :nth-child(n):nth-child(-n+1){
+  border-color: blanchedalmond;
+}

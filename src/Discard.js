@@ -7,7 +7,7 @@ class Discard extends React.Component{
     render(){
         return(
             <div>
-                <ul id="disc" className="list-inline">
+                <ul id="disc" className="list-inline card1">
                     {this.props.card.map((card, i) => 
                     <li key={i} className="list-inline-item"><Discarded  {...card} /> </li>)}
                 </ul>

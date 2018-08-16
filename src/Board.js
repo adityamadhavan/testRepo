@@ -243,7 +243,7 @@ class Board extends React.Component{
                                     <button className="compbutton"
                                         disabled={this.state.flag[0] !== 1 || this.state.hand1.length === 0 || 
                                         (this.state.hand2.length === 0 && this.state.hand3.length === 0)} 
-                                        onClick={this.Button1.bind(this)}>Continue to Player 1's Turn</button>
+                                        onClick={this.Button1.bind(this)}>Pass to 1</button>
                                 </div>  
                                 <div align="center" className="col-sm-10">
                                     <div ><h6>Player 1</h6>
@@ -267,7 +267,7 @@ class Board extends React.Component{
                                     <button className="compbutton" 
                                         disabled={this.state.flag[2] !== 1 || (this.state.hand3.length === 0 ||
                                         (this.state.hand1.length === 0 && this.state.hand2.length === 0))} 
-                                        onClick={this.Button3.bind(this)}>Continue to Player 3's Turn</button>
+                                        onClick={this.Button3.bind(this)}>Pass to 2</button>
                                 </div>  
                                 <div align="center" className="col-sm-10">
                                     <div padding="30"><h6>Player 3</h6>
