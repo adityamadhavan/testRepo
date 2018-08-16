@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import Hand from './Hand.js';
 import Discard from './Discard.js';
+import UserButton from './UserButton.js';
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
@@ -218,7 +219,9 @@ class Board extends React.Component{
     render(){
       
         return(
+
             <div>{console.log(initHand1, initHand2, initHand3)}
+            <UserButton flag={this.state.flag}/>
             {console.log(this.state.hand1, this.state.hand2, this.state.hand3)}
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
