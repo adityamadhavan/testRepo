@@ -2,13 +2,12 @@ import React from 'react';
 import './index.css';
 import Hand from './Hand.js';
 import Discard from './Discard.js';
-import UserButton from './UserButton.js';
+
 
 const suit = ["Spades", "Diamonds", "Hearts", "Clubs"];
 const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
-var z = 0;
+var z = 0, getDeck = [];
 var varPicture = [];
-var newDeck = [], createDeckArray = [];
 var initHand1 = [], initHand2 = [], initHand3 = [];
 
 function pic(x, y){
@@ -54,15 +53,14 @@ function shuffleDeck(deck) {
 }
   
 function distributeCard(hand, isFaceUp) {
-    let deck = [];
-    if (deck.length === 0)
+    if (getDeck.length === 0)
     {let createDeckArray = CreateDeck(); 
-    deck = shuffleDeck(createDeckArray);}
+    getDeck = shuffleDeck(createDeckArray);}
 
     for (var i = 0; i < 17; i++) {
-      hand[i] = deck[0];
+      hand[i] = getDeck[0];
       hand[i]['isFaceUp'] = isFaceUp;
-      deck.shift();
+      getDeck.shift();
     }
 
     return hand;
@@ -217,8 +215,6 @@ class Board extends React.Component{
         return(
 
             <div>
-            {/* <UserButton flag={this.state.flag}/> */}
-            {console.log(this.state.hand1, this.state.hand2, this.state.hand3)}
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
                     <div className="row">
