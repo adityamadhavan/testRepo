@@ -1,11 +1,44 @@
+.container{
+  max-width: 1400px;
+}
+
+.bodystyle{
+  padding: 20px;
+}
+
+.col-sm-2{
+align-self: center;
+}
+
+.compbutton{
+  font-size: 20px;
+}
+
+.topbuttons{
+  font-size: 20px;
+  padding-top: 20px;
+}
+
+#play{
+  font-size: 35px;
+  align-content: right;
+}
+
+.center{
+  align-content: center;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 
-.buttontran{
-    transition-duration: 0.4s;
+button{
+  border-radius: 10px;
+}
+
+.btn-outline-primary{
+  border-color: transparent;
 }
 
 .button:hover{
@@ -21,17 +54,18 @@ body {
     color: black;
 }
 
-.stack{
-  display: inline-flex;
-  position: relative;
+.card{
+  display: table-cell;
+  background-color: transparent;
+  border: none;
 }
 
-.rest{
-  margin-left: -102px;
+.card-container{
+  display: table;
+  table-layout: fixed;
+  width: 80%;
 }
 
-
-.deck {overflow:hidden}
-.deck img {position:relative; float:left;}
-.deck img + img {margin-left: -200px;}
-.deck img:hover {z-index:9999; border:1px solid red; background: pink}	
+/* #disc :nth-child(n+5){
+  visibility: hidden;
+} */
