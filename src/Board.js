@@ -8,7 +8,7 @@ const rank = [2,3,4,5,6,7,8,9,10,11,12,13,100];
 var z = 0;
 var varPicture = [];
 var newDeckGeneral = [], createDeckArray = [],  deck = [];
-var initHand1 = [], initHand2 = [], initHand3 = [], initHand5 = [];
+var setHand1 = [], setHand2 = [], setHand3 = [];
 
 function pic(x, y){
     return("./cards/png/" + x + "/" + y + ".png");}
@@ -58,53 +58,46 @@ newDeckGeneral = shuffleDeck(createDeckArray);
 deck = newDeckGeneral;
 
 function distributeCard(hand, isFaceUp) {
+    
     for (var i = 0; i < 17; i++) {
       hand[i] = deck[0];
       hand[i]['isFaceUp'] = isFaceUp;
       deck.shift();
     }
-    
+
     return hand;
 }
 
-initHand1 = distributeCard(initHand1, false); 
-initHand2 = distributeCard(initHand2, true);
-initHand3 = distributeCard(initHand3, false);
-
-const initialState = {
-    createDeckArray: CreateDeck(),
-    deck: newDeckGeneral,
-    hand1: initHand1,
-    hand2: initHand2,
-    hand3: initHand3,
-    hand4: [],
-    loser: "Game On!",
-    flag: [1,0,0],
-    cnt: 0
-}
-
+const initHand1 = distributeCard(setHand1, false); 
+const initHand2 = distributeCard(setHand2, true);
+const initHand3 = distributeCard(setHand3, false);
 
 class Board extends React.Component{
 
     constructor(props){
         super(props);
-        // this.initialState = {
-        //     hand1: initHand1,
-        //     hand2: initHand2,
-        //     hand3: initHand3,
-        //     hand4: [],
-        //     loser: "Game On!",
-        //     flag: [1,0,0],
-        //     cnt: 0
-        // };
-
-        this.state = initialState;
-}  
+        this.state = {
+            hand1: initHand1,
+            hand2: initHand2,
+            hand3: initHand3,
+            hand4: [],
+            loser: "Game On!",
+            flag: [1,0,0],
+            cnt: 0
+        };
+} 
 
     NewGame(){
         this.setState(
-            initialState,
-            {cnt: this.CountFun(this.state.cnt)}
+             {
+            hand1: initHand1,
+            hand2: initHand2,
+            hand3: initHand3,
+            hand4: [],
+            loser: "Game On!",
+            flag: [1,0,0],
+            cnt: 0
+        }
         );
     }
     
@@ -225,7 +218,8 @@ class Board extends React.Component{
     render(){
       
         return(
-            <div>
+            <div>{console.log(initHand1, initHand2, initHand3)}
+            {console.log(this.state.hand1, this.state.hand2, this.state.hand3)}
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
                     <div className="row">
