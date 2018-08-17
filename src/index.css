@@ -12,16 +12,13 @@ align-self: center;
 
 .compbutton{
   font-size: 20px;
+  margin-left: 40px;
+  margin-top: 25px;
 }
 
 .topbuttons{
   font-size: 20px;
   padding-top: 20px;
-}
-
-#play{
-  font-size: 35px;
-  align-content: right;
 }
 
 .center{
@@ -72,4 +69,9 @@ button{
 
 .card1 :nth-child(n):nth-child(-n+1){
   border-color: blanchedalmond;
+}
+
+.badge{
+  background-color: lightgreen;
+  margin-left: 10px;
 }
