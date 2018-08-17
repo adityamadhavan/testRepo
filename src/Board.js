@@ -216,10 +216,7 @@ class Board extends React.Component{
                     <div className="row">
                         <div align="center" className="col-sm-4 topbuttons">
                             <button onClick={this.NewGame.bind(this)}>New Game</button>
-                            <div><h6>{this.CountFun(this.state.cnt)}</h6></div>
-                        </div>
-                        <div align="center" className="col-sm-4 topbuttons">
-                        <button onClick={this.duplicateButton.bind(this)}>Remove Duplicates</button>
+                            <div>Number of games played<span className="badge">{this.CountFun(this.state.cnt)}</span></div>
                         </div>
                         <div className="col-sm-4">
                         <div align="center"><h1>{this.state.loser}</h1></div>
@@ -228,39 +225,53 @@ class Board extends React.Component{
                 </div>
                 <div className="container">
                     <div className="row">      
-                        <div className="col-sm-8">
+                        <div className="col-sm-9">
                             <div className="row">
-                                <div className="col-sm-2">
+                                <div className="col-sm-3">
                                     <button className="compbutton"
                                         disabled={this.state.flag[0] !== 1 || this.state.hand1.length === 0 || 
                                         (this.state.hand2.length === 0 && this.state.hand3.length === 0)} 
                                         onClick={this.Button1.bind(this)}>Pass to 1</button>
                                 </div>  
-                                <div align="center" className="col-sm-10">
+                                <div align="center" className="col-sm-9">
                                     <div ><h6>Player 1</h6>
                                     <Hand card={this.state.hand1}/></div>
                                 </div>
                             </div>
                             <div className="row"> 
-                                <div className="col-sm-2">
-                                    <button id="play"  
-                                        disabled={this.state.flag[1] !== 1 || (this.state.hand2.length === 0 || 
-                                        (this.state.hand3.length === 0 && this.state.hand1.length === 0))} 
-                                        onClick={this.Button2.bind(this)}>Play</button>
+                                <div className="col-sm-3">
+                                    <div>
+                                        <button disabled={this.state.flag[1] !== 1 || (this.state.hand2.length === 0 || 
+                                            (this.state.hand3.length === 0 && this.state.hand1.length === 0))} 
+                                            onClick={this.Button2.bind(this)}>Play
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button onClick={this.duplicateButton.bind(this)}>Remove Duplicates</button>
+                                    </div>
+                                
+                                    <div className="vertical-menu">
+                                        <a href="#" className="active">Home</a>
+                                        <a href="#">Link 1</a>
+                                        <a href="#">Link 2</a>
+                                        <a href="#">Link 3</a>
+                                        <a href="#">Link 4</a>
+                                    </div>
                                 </div>
-                                <div align="center" className="col-sm-10">  
+                                
+                                <div align="center" className="col-sm-9">  
                                     <div><h6>Player 2</h6>
                                     <Hand card={this.state.hand2}/></div>                     
                                 </div>
                             </div>                            
                             <div className="row">  
-                                <div className="col-sm-2">
+                                <div className="col-sm-3">
                                     <button className="compbutton" 
                                         disabled={this.state.flag[2] !== 1 || (this.state.hand3.length === 0 ||
                                         (this.state.hand1.length === 0 && this.state.hand2.length === 0))} 
                                         onClick={this.Button3.bind(this)}>Pass to 2</button>
                                 </div>  
-                                <div align="center" className="col-sm-10">
+                                <div align="center" className="col-sm-9">
                                     <div padding="30"><h6>Player 3</h6>
                                     <Hand className="e" card={this.state.hand3}/></div>
                                 </div>
