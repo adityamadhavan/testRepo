@@ -10,12 +10,6 @@
 align-self: center;
 }
 
-.compbutton{
-  font-size: 20px;
-  margin-left: 40px;
-  margin-top: 25px;
-}
-
 .topbuttons{
   font-size: 20px;
   padding-top: 20px;
@@ -74,4 +68,24 @@ button{
 .badge{
   background-color: lightgreen;
   margin-left: 10px;
+}
+
+.navbarstyle{
+  margin-left: 40px;
+}
+
+.padding1210{
+  padding: 12px 10px;
+}
+
+.padding0550{
+  padding: 5px 50px;
+  font-size: 30px;
+}
+
+.padding1539{
+  padding: 15px, 39px;
+  font-size: 20px;
+  margin-left: 40px;
+  margin-top: 70px;
 }

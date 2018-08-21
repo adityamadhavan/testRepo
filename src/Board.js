@@ -214,13 +214,14 @@ class Board extends React.Component{
                 <h1 align="center">Welcome to Old Boy</h1>
                 <div className="container">
                     <div className="row">
-                        <div align="center" className="col-sm-4 topbuttons">
+                        <div align="center" className="col-sm-2 topbuttons">
                             <button onClick={this.NewGame.bind(this)}>New Game</button>
-                            <div>Number of games played<span className="badge">{this.CountFun(this.state.cnt)}</span></div>
+                            <div>Games Played<span className="badge">{this.CountFun(this.state.cnt)}</span></div>
                         </div>
-                        <div className="col-sm-4">
+                        <div className="col-sm-8">
                         <div align="center"><h1>{this.state.loser}</h1></div>
-                        </div>    
+                        </div>  
+                        <div className="col-sm-3"></div>  
                     </div>
                 </div>
                 <div className="container">
@@ -228,7 +229,7 @@ class Board extends React.Component{
                         <div className="col-sm-9">
                             <div className="row">
                                 <div className="col-sm-3">
-                                    <button className="compbutton"
+                                    <button className="padding1539"
                                         disabled={this.state.flag[0] !== 1 || this.state.hand1.length === 0 || 
                                         (this.state.hand2.length === 0 && this.state.hand3.length === 0)} 
                                         onClick={this.Button1.bind(this)}>Pass to 1</button>
@@ -240,24 +241,19 @@ class Board extends React.Component{
                             </div>
                             <div className="row"> 
                                 <div className="col-sm-3">
-                                    <div>
-                                        <button disabled={this.state.flag[1] !== 1 || (this.state.hand2.length === 0 || 
-                                            (this.state.hand3.length === 0 && this.state.hand1.length === 0))} 
-                                            onClick={this.Button2.bind(this)}>Play
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button onClick={this.duplicateButton.bind(this)}>Remove Duplicates</button>
-                                    </div>
-                                
-                                    <div className="vertical-menu">
-                                        <a href="#" className="active">Home</a>
-                                        <a href="#">Link 1</a>
-                                        <a href="#">Link 2</a>
-                                        <a href="#">Link 3</a>
-                                        <a href="#">Link 4</a> 
-                                    </div>
+                                    <ul class="nav flex-column navbarstyle">
+                                        <li class="nav-item">
+                                            <button className="padding0550" disabled={this.state.flag[1] !== 1 || (this.state.hand2.length === 0 || 
+                                                (this.state.hand3.length === 0 && this.state.hand1.length === 0))} 
+                                                onClick={this.Button2.bind(this)}>Play
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button className="padding1210" onClick={this.duplicateButton.bind(this)}>Remove Duplicates</button>
+                                        </li>
+                                    </ul>
                                 </div>
+
                                 
                                 <div align="center" className="col-sm-9">  
                                     <div><h6>Player 2</h6>
@@ -266,7 +262,7 @@ class Board extends React.Component{
                             </div>                            
                             <div className="row">  
                                 <div className="col-sm-3">
-                                    <button className="compbutton" 
+                                    <button className="padding1539" 
                                         disabled={this.state.flag[2] !== 1 || (this.state.hand3.length === 0 ||
                                         (this.state.hand1.length === 0 && this.state.hand2.length === 0))} 
                                         onClick={this.Button3.bind(this)}>Pass to 2</button>
