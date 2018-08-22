@@ -235,7 +235,7 @@ class Board extends React.Component{
                                         onClick={this.Button1.bind(this)}>Pass to 1</button>
                                 </div>  
                                 <div align="center" className="col-sm-9">
-                                    <div ><h6>Player 1</h6>
+                                    <div className="leftpx"><h6>Player 1</h6>
                                     <Hand card={this.state.hand1}/></div>
                                 </div>
                             </div>
@@ -249,14 +249,14 @@ class Board extends React.Component{
                                             </button>
                                         </li>
                                         <li class="nav-item">
-                                            <button className="padding1210" onClick={this.duplicateButton.bind(this)}>Remove Duplicates</button>
+                                            <button className="padding1210" onClick={this.duplicateButton.bind(this)}>Discard</button>
                                         </li>
                                     </ul>
                                 </div>
 
                                 
                                 <div align="center" className="col-sm-9">  
-                                    <div><h6>Player 2</h6>
+                                    <div className="leftpx"><h6>Player 2</h6>
                                     <Hand card={this.state.hand2}/></div>                     
                                 </div>
                             </div>                            
@@ -268,7 +268,7 @@ class Board extends React.Component{
                                         onClick={this.Button3.bind(this)}>Pass to 2</button>
                                 </div>  
                                 <div align="center" className="col-sm-9">
-                                    <div padding="30"><h6>Player 3</h6>
+                                    <div  className="leftpx" padding="30"><h6>Player 3</h6>
                                     <Hand className="e" card={this.state.hand3}/></div>
                                 </div>
                             </div>  
