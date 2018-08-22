@@ -158,11 +158,11 @@ class Board extends React.Component{
     GetLoser(handA, handB, handC, loser)
     {
         if((handA.length === 1 || handA.length === 3) && handB.length === 0 && handC.length === 0)
-        {loser = "Player 1 is the loser"}
+        {loser = "Player 1 is the loser!"}
         else if((handB.length === 1 || handB.length === 3) && handC.length === 0 && handA.length === 0)
-        {loser = "Player 2 is the loser"}
+        {loser = "Player 2 is the loser!"}
         else if((handC.length === 1 || handC.length === 3) && handA.length === 0 && handB.length === 0)
-        {loser = "Player 3 is the loser"}
+        {loser = "Player 3 is the loser!"}
         else{loser = "Game progresses"}
         return loser;
     }
@@ -211,12 +211,12 @@ class Board extends React.Component{
         return(
 
             <div>
-                <h1 align="center">Welcome to Old Boy</h1>
+                <h1 className="welcome" align="center">Welcome to Old Boy!</h1>
                 <div className="container">
                     <div className="row">
                         <div align="center" className="col-sm-2 topbuttons">
                             <button onClick={this.NewGame.bind(this)}>New Game</button>
-                            <div>Games Played<span className="badge">{this.CountFun(this.state.cnt)}</span></div>
+                            <div>Games Played:<span className="badge">{this.CountFun(this.state.cnt)}</span></div>
                         </div>
                         <div className="col-sm-8">
                         <div align="center"><h1>{this.state.loser}</h1></div>
@@ -240,7 +240,7 @@ class Board extends React.Component{
                                 </div>
                             </div>
                             <div className="row"> 
-                                <div className="col-sm-3">
+                                <div className="col-sm-3 toppx">
                                     <ul class="nav flex-column navbarstyle">
                                         <li class="nav-item">
                                             <button className="padding0550" disabled={this.state.flag[1] !== 1 || (this.state.hand2.length === 0 || 

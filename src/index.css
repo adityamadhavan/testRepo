@@ -13,6 +13,7 @@ align-self: center;
 .topbuttons{
   font-size: 20px;
   padding-top: 20px;
+  left:38px;
 }
 
 .center{
@@ -26,6 +27,9 @@ body {
 
 button{
   border-radius: 10px;
+  background-color: rgb(172, 243, 172);
+  border-color: 2px solid black;
+  
 }
 
 .btn-outline-primary{
@@ -84,8 +88,20 @@ button{
 }
 
 .padding1539{
-  padding: 15px, 39px;
+  padding: 15px 39px;
   font-size: 20px;
   margin-left: 40px;
   margin-top: 70px;
+}
+
+.toppx{
+  top: 37px;
+}
+
+.font{
+  font-family: Open Sans;
+  font-family: Raleway,sans-serif;
+  float: center;
+  text-align: center;
+  
 }
