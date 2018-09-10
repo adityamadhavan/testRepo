@@ -1,13 +1,14 @@
-const CountFun = require('./CountFun');
+import GetLoser from './Board.js';
 
-test('count = to count + 1', () => {
-    expect(CountFun(1)).toBe(2);
-    expect(CountFun("a")).toBe("TypeError");
-    expect(CountFun(0.6)).toBe(1);
-    expect(CountFun(true)).toBe("TypeError");
-});
+// const Board = require('./Board');
 
-const GetLoser = require('./GetLoser');
+// test('count = to count + 1', () => {
+//     expect(Board.CountFun(1)).toBe(2);
+//     expect(Board.CountFun("a")).toBe("TypeError");
+//     expect(Board.CountFun(0.6)).toBe(1);
+//     expect(Board.CountFun(true)).toBe("TypeError");
+// });
+
 
 test('Player X is the loser', () => {
     expect(GetLoser(1,2,3,"Game progresses")).toBe("Game progresses");

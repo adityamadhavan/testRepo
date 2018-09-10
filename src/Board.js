@@ -123,7 +123,7 @@ class Board extends React.Component{
        return handA;
     }
 
-    PlayPlayer(handA, handB, handC, handD) { 
+        PlayPlayer(handA, handB, handC, handD) { 
         let x = Math.trunc(Math.random() * handB.length);
         let y = Math.trunc(Math.random() * handC.length);
         
@@ -154,6 +154,7 @@ class Board extends React.Component{
 
         return b;
     }
+    
 
     GetLoser(handA, handB, handC, loser)
     {
