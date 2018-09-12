@@ -74,6 +74,7 @@ class Board extends React.Component{
 
     constructor(props){
         super(props);
+        window.comp = this;
         this.state = {
             hand1: initHand1,
             hand2: initHand2,
@@ -83,6 +84,10 @@ class Board extends React.Component{
             flag: [1,0,0],
             cnt: 0
         };
+
+        this.CountFun = this.CountFun.bind(this);
+
+        console.log(window)
     } 
 
     NewGame(){
@@ -290,3 +295,4 @@ class Board extends React.Component{
 }
 
 export default Board;
+
